@@ -14,3 +14,24 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     sendResponse({farewell: true});
   }
 });
+
+// NOTE body 配下の .yj-actions のエレメント（yammer のアクションボタン）の追加を監視するようにした
+var selector = '.yj-message-list-item--action-list.yj-actions';
+
+var observer = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
+    for (var i = 0; i < mutation.addedNodes.length; i++) {
+      var addedNode = mutation.addedNodes[i];
+
+      if (typeof addedNode.querySelector === "function") {
+        if (addedNode.querySelector(selector)) {
+          console.log('app.js MutationObserver : addedNode matches');
+        }
+      }
+    }
+  });
+});
+
+observer.observe(document.body, {
+  childList: true, subtree: true
+});
