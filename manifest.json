@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "description": "",
-  "homepage_url": "",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -16,6 +15,17 @@
     ],
     "persistent": false
   },
+  "content_scripts": [
+    {
+      "js" :[
+        "src/content_script/app.js"
+      ],
+      "matches": [
+        "https://www.yammer.com/*"
+      ],
+      "run_at": "document_end"
+    }
+  ],
   "permissions": [
     "tabs",
     "webNavigation",
